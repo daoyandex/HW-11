@@ -9,6 +9,7 @@
 **Ответ:** 
 ![my_cluster_name](img-03-elasticsearch/11-03-tasl-1-elasticsearch.png)
 
+
 ### Задание 2. Kibana
 Установите и запустите Kibana.
 
