@@ -6,7 +6,28 @@
 Приведите скриншот команды 'curl -X GET 'localhost:9200/_cluster/health?pretty', сделанной на сервере с установленным Elasticsearch. Где будет виден нестандартный cluster_name.
 
 #### Ответ:
-![my_cluster_name](img-03-elasticsearch/11-03-tasl-1-elasticsearch.png)
+
+user@debian:~$ sudo curl --cacert /etc/elasticsearch/certs/http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cluster/health?pretty
+{
+  "cluster_name" : "my-ES-cluster",
+  "status" : "yellow",
+  "timed_out" : false,
+  "number_of_nodes" : 1,
+  "number_of_data_nodes" : 1,
+  "active_primary_shards" : 35,
+  "active_shards" : 35,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 2,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 94.5945945945946
+}
+user@debian:~$ 
+
+![my_cluster_name](img-03-elasticsearch/11-03-task-1-elasticsearch.png)
 
 
 ### Задание 2. Kibana
