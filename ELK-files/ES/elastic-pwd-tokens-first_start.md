@@ -2,27 +2,41 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html#deb-ena
 
 #
 1. The generated password for the elastic built-in superuser is :
-vJESd5V9XhDktrXa-Eus
+QH8rDoXr54EMk1JH4B3e
 
-#
+# Для ноды
 2. On any node in your existing cluster, generate a node enrollment token:
 sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s node
-token for node:
-eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMTo5MjAwIl0sImZnciI6ImMwZWEzMjllMmY0NmQwZTI2ZWQxOGM4YWM4ZjFkN2VhNTg4MjAyM2Q3NDZlY2MxMzM1MDU0NjJlYjA2OWUyMzIiLCJrZXkiOiJYSU81aDVJQmdLZzdPeXZFWkdoYzp2RlpuZnBXT1NqeUhRdWVLanBaUWpBIn0=
+
+eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMTo5MjAwIl0sImZnciI6Ijk4NzIxY2UwZTQ5NmU1MmM1ODRlYzk5OThlYmE1NjAxNmI4NmI0YzdhMWJiZGE0YzM5MmJlZWQ1MWZkNjY1OWYiLCJrZXkiOiJ5em9ya3BJQkx5RkVibUNDbElvQzpUaGxIUXlOZ1FnZXZhOGNWQ1dDS2pRIn0=
+
 
 #
 Copy the enrollment token, which is output to your terminal.
 
-#
+# Для ноды
 On your new Elasticsearch node, pass the enrollment token as a parameter to the elasticsearch-reconfigure-node tool:
 /usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token <enrollment-token>
 Elasticsearch is now configured to join the existing cluster.
 
+/usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMTo5MjAwIl0sImZnciI6Ijk4NzIxY2UwZTQ5NmU1MmM1ODRlYzk5OThlYmE1NjAxNmI4NmI0YzdhMWJiZGE0YzM5MmJlZWQ1MWZkNjY1OWYiLCJrZXkiOiJ5em9ya3BJQkx5RkVibUNDbElvQzpUaGxIUXlOZ1FnZXZhOGNWQ1dDS2pRIn0=
+
+ERROR: Skipping security auto configuration because it appears that the node is not starting up for the first time. The node might already be part of a cluster and this auto setup utility is designed to configure Security for new clusters only., with exit code 80
+
+
+# Для kibana
+$ sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMTo5MjAwIl0sImZnciI6Ijk4NzIxY2UwZTQ5NmU1MmM1ODRlYzk5OThlYmE1NjAxNmI4NmI0YzdhMWJiZGE0YzM5MmJlZWQ1MWZkNjY1OWYiLCJrZXkiOiJkNm85a3BJQndmLXNQQXhxUFpiVDpFWjdqUTlhdlFRaUY1ZllKQi1WOExnIn0=
+
+
+
 # 
-3. echo vJESd5V9XhDktrXa-Eus > /home/user/HW-11/ELK-files/elasticsearch_pwd.tmp
+3. echo QH8rDoXr54EMk1JH4B3e > /home/user/HW-11/ELK-files/elasticsearch_pwd.tmp
 
 #
-4. sudo systemctl set-environment ES_KEYSTORE_PASSPHRASE_FILE=~/HW-11/ELK-files/elasticsearch_pwd.tmp
+4. sudo systemctl set-environment ES_KEYSTORE_PASSPHRASE_FILE=~/HW-11/ELK-files/ES/elasticsearch_pwd.tmp
+sudo systemctl set-environment ELASTIC_PASSWORD=QH8rDoXr54EMk1JH4B3e
+
 5. sudo systemctl start elasticsearch.service
 
 #
@@ -51,7 +65,7 @@ Ensure that you use https in your call, or the request will fail.
 Path to the generated http_ca.crt certificate for the HTTP layer.
 
 ### добавить в ~/.bashrc
-user@debian:~/Загрузки$ export ELASTIC_PASSWORD=vJESd5V9XhDktrXa-Eus
+user@debian:~/Загрузки$ export ELASTIC_PASSWORD=QH8rDoXr54EMk1JH4B3e
 
 user@debian:~/Загрузки$ sudo curl --cacert /etc/elasticsearch/certs/http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200 
 {
