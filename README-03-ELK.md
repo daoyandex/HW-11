@@ -21,7 +21,7 @@
 Приведите скриншот интерфейса Kibana, на котором видны логи Nginx.
 
 #### Ответ:
-![kibana-filebeat-nginx-logs](img-03-elasticsearch/11-03-task-4-logs-from-logstash.png)
+![kibana-logstash-nginx-logs](img-03-elasticsearch/11-03-task-3-logs-from-logstash.png)
 
 ### Задание 4. Filebeat.
 Установите и запустите Filebeat. Переключите поставку логов Nginx с Logstash на Filebeat.
