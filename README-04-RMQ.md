@@ -6,7 +6,7 @@
 Итогом выполнения домашнего задания будет приложенный скриншот веб-интерфейса RabbitMQ.
 
 #### Ответ:
-![rabbitmq-web-interface](img-04-rabbitmq/111-04-task-1-rabbit-mq-web-interface.png)
+![rabbitmq-web-interface](img-04-rabbitmq/11-04-task-1-rabbit-mq-web-interface.png)
 
 ---
 ### Задание 2. Отправка и получение сообщений
