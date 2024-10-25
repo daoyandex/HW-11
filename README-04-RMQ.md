@@ -6,6 +6,25 @@
 Итогом выполнения домашнего задания будет приложенный скриншот веб-интерфейса RabbitMQ.
 
 #### Ответ:
+``` bash
+user@debian:~/HW-11/files-04-rmq$ ~/python-venv/bin/python -m pip install pika --upgrade
+Requirement already satisfied: pika in /home/user/python-venv/lib/python3.11/site-packages (1.3.2)
+
+user@debian:~$ sudo rabbitmq-plugins enable rabbitmq_management
+Enabling plugins on node rabbit@debian:
+rabbitmq_management
+The following plugins have been configured:
+  rabbitmq_management
+  rabbitmq_management_agent
+  rabbitmq_web_dispatch
+Applying plugin configuration to rabbit@debian...
+The following plugins have been enabled:
+  rabbitmq_management
+  rabbitmq_management_agent
+  rabbitmq_web_dispatch
+
+started 3 plugins.
+```
 ![rabbitmq-web-interface](img-04-rabbitmq/11-04-task-1-rabbit-mq-web-interface.png)
 
 ---
@@ -20,8 +39,17 @@ $ pip install pika
 Зайдите в веб-интерфейс, найдите очередь под названием hello и сделайте скриншот. После чего запустите второй скрипт consumer.py и сделайте скриншот результата выполнения скрипта
 
 В качестве решения домашнего задания приложите оба скриншота, сделанных на этапе выполнения.
-
 Для закрепления материала можете попробовать модифицировать скрипты, чтобы поменять название очереди и отправляемое сообщение.
+
+#### Ответ:
+
+[Отправка](files-04-rmq/producer.py)
+![publishing message-code](img-04-rabbitmq/11-04-task-2-publishing.png)
+
+[Приём](files-04-rmq/consumer.py)
+![receiving message-code](img-04-rabbitmq/11-04-task-2-receiving-1.png)
+![receiving web-interface](img-04-rabbitmq/11-04-task-2-receiving-2.png)
+![receiving web-interface full-view](img-04-rabbitmq/11-04-task-2-receiving-screenshot-web-if.png)
 
 ---
 ### Задание 3. Подготовка HA кластера

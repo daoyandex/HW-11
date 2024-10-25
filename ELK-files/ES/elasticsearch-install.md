@@ -56,24 +56,28 @@ sudo dpkg -i elasticsearch-8.15.2-amd64.deb
 
 
 Start Elasticsearch with security enabled
-edit
+
 When installing Elasticsearch, security features are enabled and configured by default. When you install Elasticsearch, the following security configuration occurs automatically:
 
 Authentication and authorization are enabled, and a password is generated for the elastic built-in superuser.
+
 Certificates and keys for TLS are generated for the transport and HTTP layer, and TLS is enabled and configured with these keys and certificates.
+
 The password and certificate and keys are output to your terminal. You can reset the password for the elastic user with the elasticsearch-reset-password command.
 
 We recommend storing the elastic password as an environment variable in your shell. For example:
 
 export ELASTIC_PASSWORD="your_password"
 Reconfigure a node to join an existing cluster
-edit
+
 When you install Elasticsearch, the installation process configures a single-node cluster by default. If you want a node to join an existing cluster instead, generate an enrollment token on an existing node before you start the new node for the first time.
 
 On any node in your existing cluster, generate a node enrollment token:
 
 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s node
+
 Copy the enrollment token, which is output to your terminal.
+
 On your new Elasticsearch node, pass the enrollment token as a parameter to the elasticsearch-reconfigure-node tool:
 
 /usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token <enrollment-token>
@@ -204,25 +208,27 @@ The hex-encoded SHA-256 fingerprint of this certificate is also output to the te
 If the auto-configuration process already completed, you can still obtain the fingerprint of the security certificate. You can also copy the CA certificate to your machine and configure your client to use it.
 
 Use the CA fingerprint
-edit
+
 Copy the fingerprint value that’s output to your terminal when Elasticsearch starts, and configure your client to use this fingerprint to establish trust when it connects to Elasticsearch.
 
 If the auto-configuration process already completed, you can still obtain the fingerprint of the security certificate by running the following command. The path is to the auto-generated CA certificate for the HTTP layer.
 
 openssl x509 -fingerprint -sha256 -in config/certs/http_ca.crt
+
 The command returns the security certificate, including the fingerprint. The issuer should be Elasticsearch security auto-configuration HTTP CA.
 
 issuer= /CN=Elasticsearch security auto-configuration HTTP CA
 SHA256 Fingerprint=<fingerprint>
 Use the CA certificate
-edit
+
 If your library doesn’t support a method of validating the fingerprint, the auto-generated CA certificate is created in the following directory on each Elasticsearch node:
 
 /etc/elasticsearch/certs/http_ca.crt
+
 Copy the http_ca.crt file to your machine and configure your client to use this certificate to establish trust when it connects to Elasticsearch.
 
 Directory layout of Debian package
-edit
+
 The Debian package places config files, logs, and the data directory in the appropriate locations for a Debian-based system:
 
 Type	Description	Default Location	Setting
@@ -300,10 +306,13 @@ When you install Elasticsearch, the following certificates and keys are generate
 
 http_ca.crt
 The CA certificate that is used to sign the certificates for the HTTP layer of this Elasticsearch cluster.
+
 http.p12
 Keystore that contains the key and certificate for the HTTP layer for this node.
+
 transport.p12
 Keystore that contains the key and certificate for the transport layer for all the nodes in your cluster.
+
 http.p12 and transport.p12 are password-protected PKCS#12 keystores. Elasticsearch stores the passwords for these keystores as secure settings:
 https://www.elastic.co/guide/en/elasticsearch/reference/current/secure-settings.html
 
@@ -311,13 +320,13 @@ To retrieve the passwords so that you can inspect or change the keystore content
 https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-keystore.html
 
 Use the following command to retrieve the password for http.p12:
-
 bin/elasticsearch-keystore show xpack.security.http.ssl.keystore.secure_password
-Use the following command to retrieve the password for transport.p12:
 
+Use the following command to retrieve the password for transport.p12:
 bin/elasticsearch-keystore show xpack.security.transport.ssl.keystore.secure_password
+
 Next steps
-edit
+
 You now have a test Elasticsearch environment set up. Before you start serious development or go into production with Elasticsearch, you must do some additional setup:
 
 Learn how to configure Elasticsearch:
@@ -344,7 +353,7 @@ Creating elasticsearch user... OK
 Authentication and authorization are enabled.
 TLS for the transport and HTTP layers is enabled and configured.
 
-The generated password for the elastic built-in superuser is : vJESd5V9XhDktrXa-Eus
+The generated password for the elastic built-in superuser is : QH8rDoXr54EMk1JH4B3e
 
 If this node should join an existing cluster, you can reconfigure this with
 '/usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token <token-here>'

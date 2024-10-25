@@ -1,0 +1,2 @@
+
+/etc/elasticsearch/elasticsearch.yml

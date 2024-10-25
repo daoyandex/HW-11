@@ -36,4 +36,5 @@ eyJ2ZXIiOiI4LjE0LjAiLCJhZHIiOlsiMTcyLjE3LjAuMTo5MjAwIl0sImZnciI6ImMwZWEzMjllMmY0
 
 Connect to
 https://localhost:9200
+
 Username: kibana_system
