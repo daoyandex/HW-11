@@ -16,21 +16,35 @@ params = pika.URLParameters(URI)
 connection = pika.BlockingConnection(params)
 channel = connection.channel()
 
-#channel.exchange_declare(exchange="logs", exchange_type="fanout", passive=False, durable=True)
-result_queue = channel.queue_declare(queue='hello', passive=False, durable=True)
+channel.exchange_declare(exchange="direct_logs", exchange_type="direct", passive=False, durable=True)
+
+result_queue = channel.queue_declare(queue='', exclusive=True)
 queue_name = result_queue.method.queue
 
-channel.queue_bind(exchange='logs', queue=queue_name)
+severities = sys.argv[1:]
+if not severities:
+    sys.stderr.write("Usage: %s [info] [warning] [error]\n" % sys.argv[0])
+    sys.exit(1)
+
+for severity in severities:
+    channel.queue_bind(exchange='direct_logs', 
+                       queue=queue_name,
+                       routing_key=severity)
+
+print(' [*] Waiting for logs. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
-#     time.sleep(1)
-      print(f" [x] {body}")
+    print(f" [x] {method.routing_key}:{body}")
+    #print(f" [x] Received {body.decode()}")
+    time.sleep(body.count(b'.'))
+    #print(" [x] Done")
+    #ch.basic_ack(delivery_tag = method.delivery_tag)
 
 
+#channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue=queue_name,
                       on_message_callback=callback,
-                      auto_ack=True
-                      )
+                      auto_ack=True)
 channel.start_consuming()
 
 

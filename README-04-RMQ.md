@@ -25,6 +25,7 @@ The following plugins have been enabled:
 
 started 3 plugins.
 ```
+![installation](img-04-rabbitmq/11-04-task-2-installation.png)
 ![rabbitmq-web-interface](img-04-rabbitmq/11-04-task-1-rabbit-mq-web-interface.png)
 
 ---
@@ -64,20 +65,36 @@ $ cat /etc/hosts
 После этого ваши машины могут пинговаться по имени.
 
 Затем объедините две машины в кластер и создайте политику ha-all на все очереди.
-
 В качестве решения домашнего задания приложите скриншоты из веб-интерфейса с информацией о доступных нодах в кластере и включённой политикой.
+#### Ответ: в версии 4.0.2 так не работает
+По всей видимости принцип работы с нодами в кластере поменялся начиная с версии 4.0.0.
+Не первый раз сталкиваюсь с кривыми заданиями и отвратительно поданным материалом в "лекциях" на этом "курсе".
+![rmq-cluster-queue-quorum](img-04-rabbitmq/11-04-task-3-RMQ-cluster-queue-quorum.png)
 
 Также приложите вывод команды с двух нод:
 ``` bash
 $ rabbitmqctl cluster_status
 ```
+#### Ответ:
+![cluster_status-from-two-nodes](img-04-rabbitmq/11-04-task-3-two-machines-inside-cluster.png)
+
 Для закрепления материала снова запустите скрипт producer.py и приложите скриншот выполнения команды на каждой из нод:
 ``` bash
 $ rabbitmqadmin get queue='hello'
 ```
-После чего попробуйте отключить одну из нод, желательно ту, к которой подключались из скрипта, затем поправьте параметры подключения в скрипте consumer.py на вторую ноду и запустите его.
+#### Ответ:
+![rabbitmqadmin-debian](img-04-rabbitmq/11-04-task-3-RMQ-rabbitmqadmin-debian.png)
+![rabbitmqadmin-DebianVM1](img-04-rabbitmq/11-04-task-3-RMQ-rabbitmqadmin-DebianVM1.png)
+![rabbitmqadmin-DebianVM2](img-04-rabbitmq/11-04-task-3-RMQ-rabbitmqadmin-DebianVM2.png)
 
+После чего попробуйте отключить одну из нод, желательно ту, к которой подключались из скрипта, затем поправьте параметры подключения в скрипте consumer.py на вторую ноду и запустите его.
 Приложите скриншот результата работы второго скрипта.
+#### Ответ:
+![cluster-without-debian](img-04-rabbitmq/11-04-task-3-RMQ-web-if-cluster-with-two-nodes.png)
+![producer-from-DebianVM1](img-04-rabbitmq/11-04-task-3-RMQ-producer-from-DebianVM1.png)
+![consumer-on-DebianVM2](img-04-rabbitmq/11-04-task-3-RMQ-consumer-on-DebianVM2.png)
+![queues-without-debian](img-04-rabbitmq/11-04-task-3-RMQ-web-if-queue-hello-quorum.png)
+
 
 ---
 

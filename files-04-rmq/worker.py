@@ -17,19 +17,21 @@ connection = pika.BlockingConnection(params)
 channel = connection.channel()
 
 #channel.exchange_declare(exchange="logs", exchange_type="fanout", passive=False, durable=True)
-result_queue = channel.queue_declare(queue='hello', passive=False, durable=True)
+result_queue = channel.queue_declare(queue='task_2', passive=False, durable=True)
 queue_name = result_queue.method.queue
 
-channel.queue_bind(exchange='logs', queue=queue_name)
+#channel.queue_bind(exchange='logs', queue=queue_name)
 
 def callback(ch, method, properties, body):
-#     time.sleep(1)
-      print(f" [x] {body}")
+    print(f" [x] Received {body.decode()}")
+    #time.sleep(body.count(b'.'))
+    print(" [x] Done")
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
 
+channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue=queue_name,
-                      on_message_callback=callback,
-                      auto_ack=True
+                      on_message_callback=callback
                       )
 channel.start_consuming()
 
